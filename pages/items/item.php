@@ -11,11 +11,7 @@ $item_id = (isset($_GET['id']) ? addslashes($_GET['id']) : '');
 $name    = (isset($_GET['name']) ? addslashes($_GET['name']) : '');
 
 if ($item_id != "" && is_numeric($item_id)) {
-    if ($discovered_items_only == true) {
-        $query = "SELECT * FROM $items_table, discovered_items WHERE $items_table.id='" . $item_id . "' AND discovered_items.item_id=$items_table.id";
-    } else {
-        $query = "SELECT * FROM $items_table WHERE id='" . $item_id . "'";
-    }
+	$query = "SELECT * FROM $items_table LEFT JOIN discovered_items ON discovered_items.item_id=$items_table.id WHERE $items_table.id='" . $item_id . "'";
     $query_result = db_mysql_query($query);
     if (mysqli_num_rows($query_result) == 0) {
         header("Location: items.php");
@@ -24,11 +20,7 @@ if ($item_id != "" && is_numeric($item_id)) {
     $item_db_data = mysqli_fetch_array($query_result);
     $name         = $item_db_data["name"];
 } elseif ($name != "") {
-    if ($discovered_items_only == true) {
-        $query = "SELECT * FROM $items_table, discovered_items WHERE $items_table.`name` like '$name' AND discovered_items.item_id=$items_table.id";
-    } else {
-        $query = "SELECT * FROM $items_table WHERE name like '$name'";
-    }
+        $query = "SELECT * FROM $items_table LEFT JOIN discovered_items ON discovered_items.item_id=$items_table.id WHERE $items_table.`name` like '$name'";
     $query_result = db_mysql_query($query);
     if (mysqli_num_rows($query_result) == 0) {
         header("Location: items.php?iname=" . $name . "&isearch=true");

@@ -215,7 +215,9 @@ function get_form_query_string(ID){
             val = '';
         }
         if($(this).attr('type') == "checkbox"){
-            if (!$(this).is(':checked')) {
+            if ($(this).is(':checked')) {
+                val = 1;
+            } else {
                 val = 0;
             }
         }

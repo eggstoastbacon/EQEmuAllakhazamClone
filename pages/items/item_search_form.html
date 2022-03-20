@@ -343,6 +343,30 @@
                     <td style="text-align:right"><b>With Effect</b></td>
                     <td><input type="text" value="" size="30" id="ieffect"></td>
                 </tr>
+				<tr>
+                    <td style="text-align:right"><b>Deity</b></td>
+                    <td>
+                        <select id="ideity" style="width:100%">
+                            <option value="0">-</option>
+                            <option value="2">Bertoxxulous</option>
+                            <option value="4">Brell Serilis</option>
+                            <option value="8">Cazic Thule</option>
+                            <option value="16">Erollisi Marr</option>
+                            <option value="32">Bristlebane</option>
+                            <option value="64">Innoruuk</option>
+                            <option value="128">Karana</option>
+                            <option value="256">Mithaniel Marr</option>
+                            <option value="512">Prexus</option>
+                            <option value="1024">Quellious</option>
+                            <option value="2048">Rallos Zek</option>
+                            <option value="4096">Rodcet Nife</option>
+                            <option value="8192">Solusek Ro</option>
+                            <option value="16384">The Tribunal</option>
+                            <option value="32768">Tunare</option>
+                            <option value="65536">Veeshan</option>
+                        </select>
+                    </td>
+                </tr>
                 <tr>
                     <td style="text-align:right"><b>Min Required Level</b></td>
                     <td>
@@ -520,10 +544,6 @@
                     </td>
                 </tr>
                 <tr>
-                    <td style="text-align:right"><b>Tradeable Items Only</b></td>
-                    <td><input type="checkbox" id="inodrop"></td>
-                </tr>
-                <tr>
                     <td style="text-align:right"><b>Availability</b></td>
                     <td>
                         <select id="iavailability" style="width:100%">
@@ -534,117 +554,14 @@
                     </td>
                 </tr>
                 <tr>
-                    <td style="text-align:right"><b>Max Level</b></td>
-                    <td>
-                        <select id="iavaillevel">
-                            <option value="0">-</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                            <option value="13">13</option>
-                            <option value="14">14</option>
-                            <option value="15">15</option>
-                            <option value="16">16</option>
-                            <option value="17">17</option>
-                            <option value="18">18</option>
-                            <option value="19">19</option>
-                            <option value="20">20</option>
-                            <option value="21">21</option>
-                            <option value="22">22</option>
-                            <option value="23">23</option>
-                            <option value="24">24</option>
-                            <option value="25">25</option>
-                            <option value="26">26</option>
-                            <option value="27">27</option>
-                            <option value="28">28</option>
-                            <option value="29">29</option>
-                            <option value="30">30</option>
-                            <option value="31">31</option>
-                            <option value="32">32</option>
-                            <option value="33">33</option>
-                            <option value="34">34</option>
-                            <option value="35">35</option>
-                            <option value="36">36</option>
-                            <option value="37">37</option>
-                            <option value="38">38</option>
-                            <option value="39">39</option>
-                            <option value="40">40</option>
-                            <option value="41">41</option>
-                            <option value="42">42</option>
-                            <option value="43">43</option>
-                            <option value="44">44</option>
-                            <option value="45">45</option>
-                            <option value="46">46</option>
-                            <option value="47">47</option>
-                            <option value="48">48</option>
-                            <option value="49">49</option>
-                            <option value="50">50</option>
-                            <option value="51">51</option>
-                            <option value="52">52</option>
-                            <option value="53">53</option>
-                            <option value="54">54</option>
-                            <option value="55">55</option>
-                            <option value="56">56</option>
-                            <option value="57">57</option>
-                            <option value="58">58</option>
-                            <option value="59">59</option>
-                            <option value="60">60</option>
-                            <option value="61">61</option>
-                            <option value="62">62</option>
-                            <option value="63">63</option>
-                            <option value="64">64</option>
-                            <option value="65">65</option>
-                            <option value="66">66</option>
-                            <option value="67">67</option>
-                            <option value="68">68</option>
-                            <option value="69">69</option>
-                            <option value="70">70</option>
-                            <option value="71">71</option>
-                            <option value="72">72</option>
-                            <option value="73">73</option>
-                            <option value="74">74</option>
-                            <option value="75">75</option>
-                            <option value="76">76</option>
-                            <option value="77">77</option>
-                            <option value="78">78</option>
-                            <option value="79">79</option>
-                            <option value="80">80</option>
-                        </select>
-                    </td>
+                    <td style="text-align:right"><b>Tradeable Items Only</b></td>
+                    <td><input type="checkbox" name="inodrop" id="inodrop"></td>
                 </tr>
                 <tr>
-                    <td style="text-align:right"><b>Deity</b></td>
-                    <td>
-                        <select id="ideity" style="width:100%">
-                            <option value="0">-</option>
-                            <option value="2">Bertoxxulous</option>
-                            <option value="4">Brell Serilis</option>
-                            <option value="8">Cazic Thule</option>
-                            <option value="16">Erollisi Marr</option>
-                            <option value="32">Bristlebane</option>
-                            <option value="64">Innoruuk</option>
-                            <option value="128">Karana</option>
-                            <option value="256">Mithaniel Marr</option>
-                            <option value="512">Prexus</option>
-                            <option value="1024">Quellious</option>
-                            <option value="2048">Rallos Zek</option>
-                            <option value="4096">Rodcet Nife</option>
-                            <option value="8192">Solusek Ro</option>
-                            <option value="16384">The Tribunal</option>
-                            <option value="32768">Tunare</option>
-                            <option value="65536">Veeshan</option>
-                        </select>
-                    </td>
+                    <td style="text-align:right"><b>Discovered Items Only</b></td>
+                    <td><input type="checkbox" name="idiscovered" id="idiscovered"></td>
                 </tr>
+
                 </tbody>
             </table>
         </td>

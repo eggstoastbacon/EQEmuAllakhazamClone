@@ -872,6 +872,7 @@ function return_item_stat_box($item, $show_name_icon)
 
     $html_string .= "<tr>";
     $html_string .= "<td colspan='2' nowrap='1'>";
+	
     if ($item["itemtype"] == 54) {
         $item_tags .= " Augment";
     }
@@ -1198,7 +1199,8 @@ function return_item_stat_box($item, $show_name_icon)
             }
         }
     }
-
+	
+	// Value
     $ItemPrice = $item["price"];
     $ItemValue = "";
     $Platinum  = 0;
@@ -1227,6 +1229,15 @@ function return_item_stat_box($item, $show_name_icon)
     $ItemValue   .= "</td></tr>";
     $html_string .= $ItemValue;
 
+	// Discovered
+	if ($item["char_name"] != ''){
+		$discovered = '&#10004;';
+	} else {
+		$discovered = '&#10060;';
+	}
+	$html_string .= "<tr><td><b> Discovered: </b>" . $discovered . "</td></tr>";
+
+	// Close Table
     $html_string .= "<br></td></tr></table><br>";
 
     return $html_string;

@@ -35,6 +35,7 @@ $inodrop = (isset($_GET['inodrop']) ? addslashes($_GET['inodrop']) : '');
 $iavailability = (isset($_GET['iavailability']) ? addslashes($_GET['iavailability']) : '');
 $iavailevel = (isset($_GET['iavailevel']) ? addslashes($_GET['iavailevel']) : '');
 $ideity = (isset($_GET['ideity']) ? addslashes($_GET['ideity']) : '');
+$discovered  = (isset($_GET['idiscovered']) ? addslashes($_GET['idiscovered']) : '');
 
 if (count($_GET) > 2) {
     $query = "
@@ -49,7 +50,7 @@ if (count($_GET) > 2) {
 		$items_table.delay   
 	FROM ($items_table";
 
-    if ($discovered_items_only == TRUE) {
+    if ($discovered) {
         $query .= ",discovered_items";
     }
 
@@ -111,7 +112,7 @@ if (count($_GET) > 2) {
         $query .= " $s ($items_table.$imod $imodcomp $imodvalue)";
         $s = "AND";
     }
-    if ($discovered_items_only == TRUE) {
+    if ($discovered) {
         $query .= " $s discovered_items.item_id=$items_table.id";
         $s = "AND";
     }
