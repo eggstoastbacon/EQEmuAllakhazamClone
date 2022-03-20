@@ -39,8 +39,8 @@ function SpellDescription($spell, $n, $csv = false)
             $print_buffer .= "<b>$n : Effect type: </b>";
         }
         // for debug
-        //$effect_id = $spell["effectid$n"];
-        //$print_buffer .= "<b>(Effect ID: $effect_id)</b>";
+        $effect_id = $spell["effectid$n"];
+        $print_buffer .= "<b>(Effect ID: $effect_id)</b>";
         switch ($spell["effectid$n"]) {
             case 3: // Increase Movement (% / 0)
                 if ($max < 0) { // Decrease
@@ -100,22 +100,25 @@ function SpellDescription($spell, $n, $csv = false)
             case 98: // Increase Haste v2
             case 114: // Increase Agro Multiplier
             case 119: // Increase Haste v3
+            case 127: // Increase Spell Haste
+            case 130: // Decrease Spell/Bash Hate
+            case 128: // Increase Spell Duration
+            case 129: // Increase Spell Range
+            case 131: // Decrease Chance of Using Reagent
+                $name = $dbspelleffects[$spell["effectid$n"]];
+                $min = $spell["effect_base_value$n"];
+                do_default($print_buffer, $name, $n, $min, $min);
+				$print_buffer .= '%';
+                break;			
             case 123: // Increase Spell Damage
             case 124: // Increase Spell Damage
             case 125: // Increase Spell Healing
-            case 127: // Increase Spell Haste
-            case 128: // Increase Spell Duration
-            case 129: // Increase Spell Range
-            case 130: // Decrease Spell/Bash Hate
-                $min = $spell["effect_base_value$n"];
-                $max = $spell["effect_limit_value$n"];
-                $name = str_replace("Decrease", "Increase", $name);
-                break;
-            case 131: // Decrease Chance of Using Reagent
             case 132: // Decrease Spell Mana Cost
-                $min = $spell["effect_base_value$n"];
+                $name = $dbspelleffects[$spell["effectid$n"]];
                 $max = $spell["effect_limit_value$n"];
-                break;
+                do_default($print_buffer, $name, $n, $max, $max);
+				$print_buffer .= '%';
+                break;			
             case 158: // Increase Chance to Reflect Spell
             case 168: // Increase Melee Mitigation
             case 169: // Increase Chance to Critical Hit
@@ -453,7 +456,7 @@ function do_default(&$print_buffer, $name, $n, $min, $max){
     } else {
         if ($max < 0) {
             $max = -$max;
-        }
+        }		
     $print_buffer .= " by $max";
     }
 }
