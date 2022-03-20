@@ -6,7 +6,7 @@ function SpellDescription($spell, $n, $csv = false)
 
     if (($spell["effectid$n"] != 254) AND ($spell["effectid$n"] != 10)) {
 
-		$print_buffer = '<ul>';
+        $print_buffer = '<ul>';
 
         $maxlvl = $spell["effect_base_value$n"];
         $minlvl = $server_max_level;
@@ -36,11 +36,11 @@ function SpellDescription($spell, $n, $csv = false)
         if ($csv == true) {
             $print_buffer .= ",,";
         } else {
-			$print_buffer .= "<b>$n : Effect type: </b>";
+            $print_buffer .= "<b>$n : Effect type: </b>";
         }
-		// for debug
-		$effect_id = $spell["effectid$n"];
-		$print_buffer .= "<b>(Effect ID: $effect_id)</b>";
+        // for debug
+        //$effect_id = $spell["effectid$n"];
+        //$print_buffer .= "<b>(Effect ID: $effect_id)</b>";
         switch ($spell["effectid$n"]) {
             case 3: // Increase Movement (% / 0)
                 if ($max < 0) { // Decrease
@@ -106,16 +106,16 @@ function SpellDescription($spell, $n, $csv = false)
             case 127: // Increase Spell Haste
             case 128: // Increase Spell Duration
             case 129: // Increase Spell Range
-			case 130: // Decrease Spell/Bash Hate
-				$min = $spell["effect_base_value$n"];
-				$max = $spell["effect_limit_value$n"];
-				$name = str_replace("Decrease", "Increase", $name);
-				break;
+            case 130: // Decrease Spell/Bash Hate
+                $min = $spell["effect_base_value$n"];
+                $max = $spell["effect_limit_value$n"];
+                $name = str_replace("Decrease", "Increase", $name);
+                break;
             case 131: // Decrease Chance of Using Reagent
-			case 132: // Decrease Spell Mana Cost
-				$min = $spell["effect_base_value$n"];
-				$max = $spell["effect_limit_value$n"];
-				break;
+            case 132: // Decrease Spell Mana Cost
+                $min = $spell["effect_base_value$n"];
+                $max = $spell["effect_limit_value$n"];
+                break;
             case 158: // Increase Chance to Reflect Spell
             case 168: // Increase Melee Mitigation
             case 169: // Increase Chance to Critical Hit
@@ -139,11 +139,11 @@ function SpellDescription($spell, $n, $csv = false)
             case 266: // Add Attack Chance
             case 273: // Increase Critical Dot Chance
             case 294: // Increase Critical Spell Chance
-				$print_buffer .= $dbspelleffects[$spell["effectid$n"]];
-				if ($min != $max) {
+                $print_buffer .= $dbspelleffects[$spell["effectid$n"]];
+                if ($min != $max) {
                     $print_buffer .= " by $min% to $max%";
                 } else {
-					$print_buffer .= " by $max%";
+                    $print_buffer .= " by $max%";
                 }
                 break;
             case 15: // Increase Mana per tick
@@ -298,10 +298,10 @@ function SpellDescription($spell, $n, $csv = false)
                 break;
             case 27: // Cancel Magic
             case 134: // Limit: Max Level
-			case 59: // Increase Damage Shield
+            case 59: // Increase Damage Shield
             case 157: // Spell-Damage Shield
                 $print_buffer .= $dbspelleffects[$spell["effectid$n"]];
-                $print_buffer .= " (" . -$max . ")";
+                $print_buffer .= " (" . $max . ")";
                 break;
             case 121: // Reverse Damage Shield
                 $print_buffer .= $dbspelleffects[$spell["effectid$n"]];
@@ -355,15 +355,15 @@ function SpellDescription($spell, $n, $csv = false)
                     $print_buffer .= " (" . ($max / 6000) . " sec)";
                 }
                 break;
-			// Stacking: Overwrite existing spell
+            // Stacking: Overwrite existing spell
             case 148:
-				$slot=4;
+                $slot=4;
                 $print_buffer .= $dbspelleffects[$spell["effectid$n"]];
                 $print_buffer .= " if slot $slot is effect '" . $dbspelleffects[$spell["effect_base_value$n"]] . "' and <" . $spell["max$n"];
                 break;
-			// Stacking: Overwrite existing spell
-            case 149:	
-				$slot=3;
+            // Stacking: Overwrite existing spell
+            case 149:   
+                $slot=3;
                 $print_buffer .= $dbspelleffects[$spell["effectid$n"]];
                 $print_buffer .= " if slot $slot is effect '" . $dbspelleffects[$spell["effect_base_value$n"]] . "' and <" . $spell["max$n"];
                 break;
@@ -378,41 +378,31 @@ function SpellDescription($spell, $n, $csv = false)
                 $print_buffer .= $dbspelleffects[$spell["effectid$n"]];
                 $print_buffer .= " ($max% penalty)";
                 break;
-			case 161: // Mitigate Spell Dmg
-				$mit_max = $spell["max1"];
-				$print_buffer .= "Mitigate Spell Damage by {$max}%, {$mit_max} total";
-				break;
-			case 162: // Mitigate Melee Dmg
-				$mit_max = $spell["max1"];
-				$print_buffer .= "Mitigate Melee Damage by {$max}%, {$mit_max} total";
-				break;
+            case 161: // Mitigate Spell Dmg
+                $mit_max = $spell["max1"];
+                $print_buffer .= "Mitigate Spell Damage by {$max}%, {$mit_max} total";
+                break;
+            case 162: // Mitigate Melee Dmg
+                $mit_max = $spell["max1"];
+                $print_buffer .= "Mitigate Melee Damage by {$max}%, {$mit_max} total";
+                break;
             case 0: // In/Decrease hitpoints
                 $name = $dbspelleffects[$spell["effectid$n"]];
-                if ($max < 0) {
-                    $name = str_replace("Increase", "Decrease", $name);
+                do_default($print_buffer, $name, $n, $min, $max);
+                if($spell['buffduration'] != 0){
+                    $print_buffer .= " per tick";
                 }
-                $print_buffer .= $name;
-				$min = abs($min);
-				$max = abs($max);
-                if ($min != $max) {
-                    $print_buffer .= " by $min to $max";
-                } else {
-                    $print_buffer .= " by $max";
-                }
-				if($spell['buffduration'] != 0){
-					$print_buffer .= " per tick";
-				}
                 break;
-			// Increase Hate
+            // Increase Hate
             case 192:
-				$min = $spell['HateAdded'];
-				$max = $spell['HateAdded'];
-				do_default($print_buffer, "Increase Hate", $n, $min, $max);
-				break;
+                $min = $spell['HateAdded'];
+                $max = $spell['HateAdded'];
+                do_default($print_buffer, "Increase Hate", $n, $min, $max);
+                break;
             case 199:
-			case 444:
-				do_default($print_buffer, "Increase Hate", $n, $min, $max);
-				break;
+            case 444:
+                do_default($print_buffer, "Increase Hate", $n, $min, $max);
+                break;
             case 1: // Increase AC
             case 2: // Increase ATK
             case 4: // Increase STR
@@ -433,7 +423,7 @@ function SpellDescription($spell, $n, $csv = false)
             case 69: // Increase Max Hitpoints
             case 78: // Increase Absorb Magic Damage
             case 79: // Increase HP when cast
-			case 92: // Increate Hate
+            case 92: // Increate Hate
             case 97: // Increase Mana Pool
             case 111: // Increase All Resists
             case 112: // Increase Effective Casting
@@ -442,7 +432,7 @@ function SpellDescription($spell, $n, $csv = false)
             case 159: // Decrease Stats
             case 167: // Pet Power Increase
             default:
-				$name = $dbspelleffects[$spell["effectid$n"]];
+                $name = $dbspelleffects[$spell["effectid$n"]];
                 do_default($print_buffer, $name, $n, $min, $max);
                 break;
         }
@@ -453,17 +443,17 @@ function SpellDescription($spell, $n, $csv = false)
 }
 
 function do_default(&$print_buffer, $name, $n, $min, $max){
-	
-	if ($max < 0) {
-		$name = str_replace("Increase", "Decrease", $name);
-	}
-	$print_buffer .= $name;
-	if ($min != $max) {
-		$print_buffer .= " by $min to $max";
-	} else {
-		if ($max < 0) {
-			$max = -$max;
-		}
-	$print_buffer .= " by $max";
-	}
+    
+    if ($max < 0) {
+        $name = str_replace("Increase", "Decrease", $name);
+    }
+    $print_buffer .= $name;
+    if ($min != $max) {
+        $print_buffer .= " by $min to $max";
+    } else {
+        if ($max < 0) {
+            $max = -$max;
+        }
+    $print_buffer .= " by $max";
+    }
 }
