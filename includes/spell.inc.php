@@ -423,7 +423,7 @@ function SpellDescription($spell, $n, $csv = false)
             case 69: // Increase Max Hitpoints
             case 78: // Increase Absorb Magic Damage
             case 79: // Increase HP when cast
-            case 92: // Increate Hate
+            case 92: // Increase Hate
             case 97: // Increase Mana Pool
             case 111: // Increase All Resists
             case 112: // Increase Effective Casting
