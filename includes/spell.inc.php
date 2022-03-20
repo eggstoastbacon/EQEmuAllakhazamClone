@@ -39,8 +39,8 @@ function SpellDescription($spell, $n, $csv = false)
             $print_buffer .= "<b>$n : Effect type: </b>";
         }
         // for debug
-        $effect_id = $spell["effectid$n"];
-        $print_buffer .= "<b>(Effect ID: $effect_id)</b>";
+        //$effect_id = $spell["effectid$n"];
+        //$print_buffer .= "<b>(Effect ID: $effect_id)</b>";
         switch ($spell["effectid$n"]) {
             case 3: // Increase Movement (% / 0)
                 if ($max < 0) { // Decrease
